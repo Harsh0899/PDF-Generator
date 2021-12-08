@@ -1,17 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import { PDFDocument } from './PDFDocument';
+import useFetch from './useFetch';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const info = {
+  title: "ISO-5055 Compliance Report",
+  appName: "ISO5055",
+  version: "MyVersion",
+  castAIP: "8.3.29",
+  date: "Apr 26 2021",
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+  const data = useFetch('http://localhost:7000/data');
+
+  return (
+    <div className="App">
+      {data &&  <PDFDownloadLink 
+        document = {<PDFDocument info={info} data={data} />}
+        filename = "test.pdf"
+        style = {{
+          textDecoration: "none",
+          padding: "10px",
+          color: "#ffffff",
+          backgroundColor: "#365F91",
+          border: "1px solid #365F91"
+        }}
+      >
+        Download
+      </PDFDownloadLink>}
+      {/* <PDFViewer height="740px" width="100%">
+        <PDFDocument info={info} data={data} />
+      </PDFViewer> */}
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
