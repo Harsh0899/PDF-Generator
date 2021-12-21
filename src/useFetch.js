@@ -5,7 +5,15 @@ const useFetch = (url) => {
 
     useEffect(() => {
 
-        fetch(url)
+        fetch(url , {
+            method: "GET",
+            mode: "cors",
+            credentials: "same-origin",
+            headers: new Headers({
+                'Authorization': 'Basic '+btoa('cast:cast'), 
+                'Content-Type': 'application/json'
+              }),
+        })
             .then(res => {
                 if(!res.ok) {
                     throw Error("Could not Recieve data from endpoint");

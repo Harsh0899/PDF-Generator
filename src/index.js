@@ -5,19 +5,17 @@ import { PDFDocument } from './PDFDocument';
 import useFetch from './useFetch';
 
 const info = {
-  title: "ISO-5055 Compliance Report",
-  appName: "ISO5055",
-  version: "MyVersion",
-  castAIP: "8.3.29",
-  date: "Apr 26 2021",
+  title: "Report",
+  content: "AAD Applications",
+  date: "Dec 10 2021",
 }
 
 function App() {
-  const data = useFetch('http://localhost:7000/data');
-
+  const data = useFetch('/cast-health-engineering-dashboard-2.3.0-SNAPSHOT-637/rest/AAD/applications');
+  console.log(data);
   return (
     <div className="App">
-      {data &&  <PDFDownloadLink 
+      {/* {data && <PDFDownloadLink 
         document = {<PDFDocument info={info} data={data} />}
         filename = "test.pdf"
         style = {{
@@ -29,10 +27,10 @@ function App() {
         }}
       >
         Download
-      </PDFDownloadLink>}
-      {/* <PDFViewer height="740px" width="100%">
+      </PDFDownloadLink>} */}
+      <PDFViewer height="740px" width="100%">
         <PDFDocument info={info} data={data} />
-      </PDFViewer> */}
+      </PDFViewer>
     </div>
   );
 }
