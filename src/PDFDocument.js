@@ -14,6 +14,8 @@ import {
     TableCell,
     DataTableCell
   } from "@david.kucsai/react-pdf-table";
+import ChartSvg from "./charts";
+import SimpleLineChart from "./SimpleLineChart";
 
 const styles = StyleSheet.create({
     reportHeading: {
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
         textOverflow: "ellipsis",
         overflow: "hidden",
         whiteSpace: "no-wrap",
+        textAlign: "center",
     },
     pageHeader: {
         fontSize: 8,
@@ -83,6 +86,10 @@ const styles = StyleSheet.create({
     },
     tableContainer: {
         margin: "0px 10px 20px 10px",
+    },
+    chart: {
+        display: "flex",
+        flexDirection: "row",
     }
 })
 
@@ -147,6 +154,11 @@ export const PDFDocument = ({info, data}) => {
                             </TableBody>
                         </Table>
                     </View>
+                </View>
+                <View style={styles.chart}>
+                    <ChartSvg>
+                        <SimpleLineChart />
+                    </ChartSvg>
                 </View>
                 <Text style={styles.pageNum} render={({ pageNumber, totalPages }) => pageNumber > 1 && (
                     `${pageNumber} / ${totalPages}`
